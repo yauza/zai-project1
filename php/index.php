@@ -9,6 +9,13 @@ if (isset($_SESSION["user_id"])) {
     $user = $result->fetch_assoc();
 }
 
+$array = array(
+    "1" => "description 1",
+    "2" => "description 2",
+    "3" => "description 3",
+    "4" => "description 4",
+);
+
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +34,7 @@ if (isset($_SESSION["user_id"])) {
             <div class="logo">TEST</div>
             <ul>
                 <?php if (isset($user)): ?>
-                    <li>Hello <?= htmlspecialchars($user["login"]) ?>.</li>
+                    <li><?= htmlspecialchars($user["login"]) ?></li>
                     <li><a href="logout.php">Log out</a></li>
                 <?php else: ?>
                     <li><a href="login.php">Log in</a> or <a href="../signup.html">sign up</a></li>
@@ -36,9 +43,15 @@ if (isset($_SESSION["user_id"])) {
         </nav>
     </div>
 
-    <div>
-            
-
+    <div class="timeline">
+        <?php foreach($array as $key=>$value): ?>
+            <div class="container right">
+                <div class="content">
+                    <h2><?= $key ?></h2>
+                    <p><?= $value ?></p>
+                </div>
+            </div>   
+        <?php endforeach; ?>
     </div>
 
 </body>

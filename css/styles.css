@@ -15,14 +15,9 @@
 
 body {
     font-weight: 400;
+    font-family: 'Courier New', monospace;
     font-size: 20px;
     background-color: #FFFAFF;
-}
-
-a {
-    font-weight: 400;
-    font-size: 20px;
-    color: #D8315B;
 }
 
 .p {
@@ -37,20 +32,12 @@ a {
     margin-right: auto;
 }
 
-/* Basic reset */
-/* * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-} */
-/* .test-container {
-    width: 100%;
-} */
+/* Navbar styles */
 
 .navbar-container {
     padding: 1rem;
     max-width: -webkit-fill-available;
-    background-color: #1E1B18;
+    background-color: #0A2463;
 }
 
 .navbar {
@@ -60,13 +47,13 @@ a {
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background-color: #1E1B18;
-    color: white;
+    background-color: #0A2463;
 }
 
 .navbar .logo {
     font-size: 1.5rem;
     font-weight: bold;
+    color: #FFFAFF;
 }
 
 .navbar ul {
@@ -76,15 +63,98 @@ a {
 
 .navbar ul li {
     margin-left: 1.5rem;
+    color: #FFFAFF;
 }
 
 .navbar ul li a {
-    color: white;
     text-decoration: none;
-    font-size: 1rem;
+    color: #D8315B;
     transition: color 0.3s ease;
 }
 
-.navbar ul li a:hover {
-    color: #ddd;
+/* ---------- */
+
+/* Timeline styles */
+
+.timeline {
+    position: relative;
+    margin: 0 auto;
 }
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    background-color: #D8315B;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+}
+
+.container {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+}
+
+.container::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: -17px;
+    background-color: red;
+    border: 4px solid #0A2463;
+    top: 15px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.left {
+    left: 0;
+}
+
+.left::before {
+    content: " ";
+    height: 0;
+    position: absolute;
+    top: 22px;
+    width: 0;
+    z-index: 1;
+    right: 30px;
+    border: medium solid blue;
+    border-width: 10px 0 10px 10px;
+    border-color: transparent transparent transparent red;
+}
+
+.right {
+    left: 50%;
+}
+
+.right::before {
+    content: " ";
+    height: 0;
+    position: absolute;
+    top: 22px;
+    width: 0;
+    z-index: 1;
+    left: 30px;
+    border: medium solid blue;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent transparent transparent red;
+}
+
+.right::after {
+    left: -16px;
+}
+
+.content {
+    padding: 20px 30px;
+    background-color: red;
+    position: relative;
+    border-radius: 6px;
+}
+
+/* ---------- */
