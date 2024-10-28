@@ -1,0 +1,90 @@
+/*
+    Color scheme:
+        Royal blue: #0A2463
+        Celestial blue: #3E92CC
+        Ghost white: #FFFAFF
+        Cerise: #D83315B
+        Eerie black: #1E1B18 
+*/
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-weight: 400;
+    font-size: 20px;
+    background-color: #FFFAFF;
+}
+
+a {
+    font-weight: 400;
+    font-size: 20px;
+    color: #D8315B;
+}
+
+.p {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.signup-form {
+    max-width: fit-content;
+    max-height: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Basic reset */
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+/* .test-container {
+    width: 100%;
+} */
+
+.navbar-container {
+    padding: 1rem;
+    max-width: -webkit-fill-available;
+    background-color: #1E1B18;
+}
+
+.navbar {
+    width: 100%;
+    max-width: -webkit-fill-available;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #1E1B18;
+    color: white;
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar ul {
+    display: flex;
+    list-style-type: none;
+}
+
+.navbar ul li {
+    margin-left: 1.5rem;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar ul li a:hover {
+    color: #ddd;
+}
