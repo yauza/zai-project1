@@ -2,12 +2,19 @@
 
 session_start();
 
+$mysqli = require __DIR__ . "/db.php";
+
 if (isset($_SESSION["user_id"])) {
-    $mysqli = require __DIR__ . "/db.php";
     $sql = "SELECT * FROM user WHERE id = {$_SESSION["user_id"]}";
     $result = $mysqli->query($sql);
     $user = $result->fetch_assoc();
 }
+
+$sql = "SELECT user.login, title, start_date, end_date, description, image_path, category.type, category.color
+        FROM entry
+        JOIN category on category.id = entry.category
+        JOIN user on user.id = entry.user";
+$entries_result = $mysqli->query($sql);
 
 $array = array(
     "1" => "description 1",
@@ -44,15 +51,41 @@ $array = array(
     </div>
 
     <div class="timeline">
-        <?php foreach($array as $key=>$value): ?>
-            <div class="container right">
-                <div class="content">
-                    <h2><?= $key ?></h2>
-                    <p><?= $value ?></p>
-                </div>
-            </div>   
-        <?php endforeach; ?>
+    <?php
+        $i = 0;
+        while($row = $entries_result->fetch_assoc()) {
+            if($i % 2 == 0) echo "<div class=\"container right\">";
+            else echo "<div class=\"container left\">";
+            $i++;
+
+            echo "<div class=\"content\" onclick=\"showModal(" . htmlspecialchars($i) . ")\">";
+            echo "<h2>" . htmlspecialchars($row["title"]) . "</h2>";
+            echo "<p>" . htmlspecialchars($row["description"]) . "</p>";
+            echo "</div></div>";
+
+            echo "<div id=" . htmlspecialchars($i) . " class=\"modal\">";
+            echo "<div class=\"modal-content\">";
+            echo "<span class=\"close-btn\" onclick=\"closeModal(" . htmlspecialchars($i) . ")\">&times;</span>";
+            echo "<h2>Title: " . htmlspecialchars($row["title"]) . "</h2>";
+            echo "<h3>User: " . htmlspecialchars($row["login"]) . "</h3>";
+            echo "<h4>Date: " . htmlspecialchars($row["start_date"]) . " - " . htmlspecialchars($row["end_date"]) . "</h4>";
+            echo "<p>Category: " . htmlspecialchars($row["type"]) . "</p>";
+            echo "<p>Description: " . htmlspecialchars($row["description"]) . "</p>";
+            echo "</div></div>";
+        }
+    ?>
     </div>
+
+<script>
+    function showModal(id) {
+        document.getElementById(id).style.display = 'flex';
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+</script>
+
 
 </body>
 </html>
