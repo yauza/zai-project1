@@ -32,7 +32,7 @@ $array = array(
     <meta charset="utf-8">
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"> -->
     <link rel="stylesheet" href="../css/styles.css">
-</head>
+ </head>
 <body>
 
     <div class="navbar-container">
