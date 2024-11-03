@@ -10,18 +10,18 @@ if (isset($_SESSION["user_id"])) {
     $user = $result->fetch_assoc();
 }
 
-$sql = "SELECT user.login, title, start_date, end_date, description, image_path, category.type, category.color
+$entries_sql = "SELECT user.login, title, start_date, end_date, description, image_path, category.type, category.color
         FROM entry
         JOIN category on category.id = entry.category
         JOIN user on user.id = entry.user";
-$entries_result = $mysqli->query($sql);
+$entries_result = $mysqli->query($entries_sql);
 
-$array = array(
-    "1" => "description 1",
-    "2" => "description 2",
-    "3" => "description 3",
-    "4" => "description 4",
-);
+$categories = array();
+$categories_sql = "SELECT type, color FROM category";
+$categories_result = $mysqli->query($categories_sql);
+while($cat_row = $categories_result->fetch_assoc()) {
+    $categories[] = $cat_row["type"];
+}
 
 ?>
 
@@ -66,11 +66,29 @@ $array = array(
             echo "<div id=" . htmlspecialchars($i) . " class=\"modal\">";
             echo "<div class=\"modal-content\">";
             echo "<span class=\"close-btn\" onclick=\"closeModal(" . htmlspecialchars($i) . ")\">&times;</span>";
-            echo "<h2>Title: " . htmlspecialchars($row["title"]) . "</h2>";
-            echo "<h3>User: " . htmlspecialchars($row["login"]) . "</h3>";
-            echo "<h4>Date: " . htmlspecialchars($row["start_date"]) . " - " . htmlspecialchars($row["end_date"]) . "</h4>";
-            echo "<p>Category: " . htmlspecialchars($row["type"]) . "</p>";
-            echo "<p>Description: " . htmlspecialchars($row["description"]) . "</p>";
+            if (isset($user)) {
+                echo "<h2>Title: <textarea class=\"title\" id=\"title\" cols=\"50\" rows=\"1\">" . htmlspecialchars($row["title"]) . "</textarea></h2>";
+                echo "<h3>User: " . htmlspecialchars($row["login"]) . "</h3>";
+                echo "<h4>Date: " . htmlspecialchars($row["start_date"]) . " - " . htmlspecialchars($row["end_date"]) . "</h4>";
+                echo "<h4>Category: </h4>";
+                echo "<select id=\"categories\">";         
+                    foreach($categories as $cat) {
+
+                        if ($row["type"] === $cat) $selected = "selected";
+                        else $selected = "";
+                        echo "<option " . $selected . " value=\"" . htmlspecialchars($cat) . "\">" . htmlspecialchars($cat) . "</option>";
+                        // . htmlspecialchars($row["type"]) . "</h4>";
+                    }
+                echo "</select>";
+                echo "<h4>Description: <textarea class=\"description\" id=\"description\" cols=\"50\" rows=\"3\">" . htmlspecialchars($row["description"]) . "</textarea></h4>";
+                echo "<button>Save & exit</button>";
+            } else {                
+                echo "<h2>Title: " . htmlspecialchars($row["title"]) . "</h2>";
+                echo "<h3>User: " . htmlspecialchars($row["login"]) . "</h3>";
+                echo "<h4>Date: " . htmlspecialchars($row["start_date"]) . " - " . htmlspecialchars($row["end_date"]) . "</h4>";
+                echo "<h4>Category: " . htmlspecialchars($row["type"]) . "</h4>";
+                echo "<h4>Description:</h4><p> " . htmlspecialchars($row["description"]) . "</p>";
+            }
             echo "</div></div>";
         }
     ?>
@@ -85,7 +103,6 @@ $array = array(
         document.getElementById(id).style.display = 'none';
     }
 </script>
-
 
 </body>
 </html>
