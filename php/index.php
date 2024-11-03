@@ -73,7 +73,6 @@ while($cat_row = $categories_result->fetch_assoc()) {
                 echo "<h4>Category: </h4>";
                 echo "<select id=\"categories\">";         
                     foreach($categories as $cat) {
-
                         if ($row["type"] === $cat) $selected = "selected";
                         else $selected = "";
                         echo "<option " . $selected . " value=\"" . htmlspecialchars($cat) . "\">" . htmlspecialchars($cat) . "</option>";
