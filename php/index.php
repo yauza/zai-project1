@@ -12,8 +12,8 @@ if (isset($_SESSION["user_id"])) {
 
 $entries_sql = "SELECT user.login, title, start_date, end_date, description, image_url, category.type, category.color
         FROM entry
-        JOIN category on category.id = entry.category
-        JOIN user on user.id = entry.user";
+        JOIN category on category.type = entry.category
+        JOIN user on user.login = entry.user";
 $entries_result = $mysqli->query($entries_sql);
 
 $categories = array();
@@ -62,9 +62,9 @@ while($cat_row = $categories_result->fetch_assoc()) {
             echo "<h4>Start date: <input type=\"date\" name=\"start_date\" id=\"start-date\"> </h4>";
             echo "<h4>End date: <input type=\"date\" name=\"end_date\" id=\"end-date\"> </h4>";
             echo "<h4>Category: </h4>";
-            echo "<select id=\"categories\">";         
+            echo "<select id=\"category\" name=\"category\">";     
                 foreach($categories as $cat) {
-                    echo "<option value=\"" . htmlspecialchars($cat) . "\" name=\"category\">" . htmlspecialchars($cat) . "</option>";
+                    echo "<option value=\"" . htmlspecialchars($cat) . "\">" . htmlspecialchars($cat) . "</option>";
                 }
             echo "</select>";
             echo "<h4>Description: <textarea class=\"description\" name=\"description\" id=\"description\" cols=\"50\" rows=\"3\"></textarea></h4>";
@@ -110,6 +110,7 @@ while($cat_row = $categories_result->fetch_assoc()) {
                 echo "<h3>User: " . htmlspecialchars($row["login"]) . "</h3>";
                 echo "<h4>Date: " . htmlspecialchars($row["start_date"]) . " - " . htmlspecialchars($row["end_date"]) . "</h4>";
                 echo "<h4>Category: " . htmlspecialchars($row["type"]) . "</h4>";
+                echo "<h4>Image url: " . htmlspecialchars($row["image_url"]) . "</h4>";
                 echo "<h4>Description:</h4><p> " . htmlspecialchars($row["description"]) . "</p>";
             }
             echo "</div></div>";          
