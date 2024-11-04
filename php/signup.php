@@ -18,7 +18,6 @@ if ($_POST["password"] !== $_POST["repeat-password"]) {
     die("Password and confirmation must match");
 }
 
-print_r($_POST);
 $hashed_password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
 $mysqli = require __DIR__ . "/db.php";
