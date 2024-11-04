@@ -82,6 +82,7 @@ while($cat_row = $categories_result->fetch_assoc()) {
             echo "<div class=\"content\" onclick=\"showModal(" . htmlspecialchars($i) . ")\">";
             echo "<h2>" . htmlspecialchars($row["title"]) . "</h2>";
             echo "<p>" . htmlspecialchars($row["description"]) . "</p>";
+            echo "<img src=\"" . htmlspecialchars($row["image_url"]) . "\">";
             echo "</div></div>";
 
             // Edit modal
@@ -110,7 +111,7 @@ while($cat_row = $categories_result->fetch_assoc()) {
                 echo "<h3>User: " . htmlspecialchars($row["login"]) . "</h3>";
                 echo "<h4>Date: " . htmlspecialchars($row["start_date"]) . " - " . htmlspecialchars($row["end_date"]) . "</h4>";
                 echo "<h4>Category: " . htmlspecialchars($row["type"]) . "</h4>";
-                echo "<h4>Image url: " . htmlspecialchars($row["image_url"]) . "</h4>";
+                echo "<h4>Image url: <p>" . htmlspecialchars($row["image_url"]) . "</p></h4>";
                 echo "<h4>Description:</h4><p> " . htmlspecialchars($row["description"]) . "</p>";
             }
             echo "</div></div>";          
