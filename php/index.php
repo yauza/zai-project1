@@ -10,10 +10,10 @@ if (isset($_SESSION["user_id"])) {
     $user = $result->fetch_assoc();
 }
 
-$entries_sql = "SELECT user.login, title, start_date, end_date, description, image_url, category.type, category.color
+$entries_sql = "SELECT user.login, entry.id, title, start_date, end_date, description, image_url, category.type, category.color
         FROM entry
-        JOIN category on category.type = entry.category
-        JOIN user on user.login = entry.user";
+        JOIN category on category.id = entry.category
+        JOIN user on user.id = entry.user";
 $entries_result = $mysqli->query($entries_sql);
 
 $categories = array();
@@ -57,7 +57,7 @@ while($cat_row = $categories_result->fetch_assoc()) {
         echo "<div id=\"add-entry\" class=\"modal\">";
             echo "<div class=\"modal-content\">";
             echo "<span class=\"close-btn\" onclick=\"closeModal('add-entry')\">&times;</span>";
-            echo "<form action=\"save-entry.php\" method=\"post\">";
+            echo "<form action=\"add-entry.php\" method=\"post\">";
             echo "<h2>Title: <textarea class=\"title\" name=\"title\" id=\"title\" cols=\"50\" rows=\"1\"></textarea></h2>";
             echo "<h3>User: " . htmlspecialchars($user["login"]) . "</h3><input type=\"hidden\" name=\"user\" value=\"" . htmlspecialchars($user["login"]) . "\">";
             echo "<h4>Start date: <input type=\"date\" name=\"start_date\" id=\"start-date\"> </h4>";
@@ -91,8 +91,9 @@ while($cat_row = $categories_result->fetch_assoc()) {
             echo "<div class=\"modal-content\">";
             echo "<span class=\"close-btn\" onclick=\"closeModal(" . htmlspecialchars($i) . ")\">&times;</span>";
             if (isset($user)) {
-                echo "<form action=\"save-entry.php\" method=\"post\">";
-                echo "<h2>Title: <textarea class=\"title\" id=\"title\" cols=\"50\" rows=\"1\">" . htmlspecialchars($row["title"]) . "</textarea></h2>";
+                echo "<form action=\"edit-entry.php\" method=\"post\">";
+                echo "<input type=\"hidden\" id=\"id-input\" name=\"id\" value=\"" . htmlspecialchars($row["id"]) . "\">";
+                echo "<h2>Title: <textarea class=\"title\" id=\"title\" cols=\"50\" rows=\"1\" name=\"title\">" . htmlspecialchars($row["title"]) . "</textarea></h2>";
                 echo "<h3>User: " . htmlspecialchars($row["login"]) . "</h3>";
                 echo "<h4>Date: " . htmlspecialchars($row["start_date"]) . " - " . htmlspecialchars($row["end_date"]) . "</h4>";
                 echo "<h4>Category: </h4>";

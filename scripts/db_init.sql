@@ -37,7 +37,7 @@ INSERT INTO USER (login, password) VALUES
     ('admin', 'hashed_admin_password');
 
 INSERT INTO ENTRY (title, description, start_date, end_date, image_url, category, user) VALUES
-    ('Meeting with team', 'Next week we are planning a very important meeting, be prepared!', '2024-11-07', '2024-11-07', 'https://img.freepik.com/free-photo/colorful-design-with-spiral-design_188544-9588.jpg', 3, 1),
+    ('Meeting with the team', 'Next week we are planning a very important meeting, be prepared!', '2024-11-07', '2024-11-07', 'https://img.freepik.com/free-photo/colorful-design-with-spiral-design_188544-9588.jpg', 3, 1),
     ('Vacation', 'I visited my family last weekend. It was beatiful, we had great time and I finally found some rest.', '2024-11-08', '2024-11-08', 'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg', 2, 2),
     ('Maintenance window', 'Website will be unavailable for the next few hours.', '2024-11-05', '2024-11-05', '', 3, 2),
     ('Bye w3schools ', 'w3schools website will be taken down.', '2024-11-10', '2024-11-12', 'https://www.w3schools.com/images/w3chools_green.jpg', 1, 1);
