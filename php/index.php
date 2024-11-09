@@ -13,14 +13,16 @@ if (isset($_SESSION["user_id"])) {
 $entries_sql = "SELECT user.login, entry.id, title, start_date, end_date, description, image_url, category.type, category.color
         FROM entry
         JOIN category on category.id = entry.category
-        JOIN user on user.id = entry.user";
+        JOIN user on user.id = entry.user
+        ORDER BY start_date";
+
 $entries_result = $mysqli->query($entries_sql);
 
 $categories = array();
-$categories_sql = "SELECT type, color FROM category";
+$categories_sql = "SELECT id, type, color FROM category";
 $categories_result = $mysqli->query($categories_sql);
 while($cat_row = $categories_result->fetch_assoc()) {
-    $categories[] = $cat_row["type"];
+    $categories[$cat_row["id"]] = $cat_row["type"];
 }
 
 ?>
@@ -45,7 +47,7 @@ while($cat_row = $categories_result->fetch_assoc()) {
                     <li><a href="password-change.php">Change password</a></li>
                     <li><a href="logout.php">Log out</a></li>
                 <?php else: ?>
-                    <li><a href="login.php">Log in</a> or <a href="../signup.html">sign up</a></li>
+                    <li><a href="login.php">Log in</a> or <a href="../signup.html">Sign up</a></li>
                 <?php endif; ?>
             </ul>
         </nav>
@@ -59,13 +61,13 @@ while($cat_row = $categories_result->fetch_assoc()) {
             echo "<span class=\"close-btn\" onclick=\"closeModal('add-entry')\">&times;</span>";
             echo "<form action=\"add-entry.php\" method=\"post\">";
             echo "<h2>Title: <textarea class=\"title\" name=\"title\" id=\"title\" cols=\"50\" rows=\"1\"></textarea></h2>";
-            echo "<h3>User: " . htmlspecialchars($user["login"]) . "</h3><input type=\"hidden\" name=\"user\" value=\"" . htmlspecialchars($user["login"]) . "\">";
+            echo "<h3>User: " . htmlspecialchars($user["login"]) . "</h3><input type=\"hidden\" name=\"user\" value=\"" . htmlspecialchars($user["id"]) . "\">";
             echo "<h4>Start date: <input type=\"date\" name=\"start_date\" id=\"start-date\"> </h4>";
             echo "<h4>End date: <input type=\"date\" name=\"end_date\" id=\"end-date\"> </h4>";
             echo "<h4>Category: </h4>";
             echo "<select id=\"category\" name=\"category\">";     
-                foreach($categories as $cat) {
-                    echo "<option value=\"" . htmlspecialchars($cat) . "\">" . htmlspecialchars($cat) . "</option>";
+                foreach($categories as $cat_id => $cat_type) {
+                    echo "<option value=\"" . htmlspecialchars($cat_id) . "\">" . htmlspecialchars($cat_type) . "</option>";
                 }
             echo "</select>";
             echo "<h4>Description: <textarea class=\"description\" name=\"description\" id=\"description\" cols=\"50\" rows=\"3\"></textarea></h4>";
@@ -97,11 +99,11 @@ while($cat_row = $categories_result->fetch_assoc()) {
                 echo "<h3>User: " . htmlspecialchars($row["login"]) . "</h3>";
                 echo "<h4>Date: " . htmlspecialchars($row["start_date"]) . " - " . htmlspecialchars($row["end_date"]) . "</h4>";
                 echo "<h4>Category: </h4>";
-                echo "<select id=\"categories\">";         
-                    foreach($categories as $cat) {
-                        if ($row["type"] === $cat) $selected = "selected";
+                echo "<select id=\"categories\" name=\"category\">";         
+                    foreach($categories as $cat_id => $cat_type) {
+                        if ($row["type"] === $cat_type) $selected = "selected";
                         else $selected = "";
-                        echo "<option " . $selected . " name=\"category\" value=\"" . htmlspecialchars($cat) . "\">" . htmlspecialchars($cat) . "</option>";
+                        echo "<option " . $selected . " value=\"" . htmlspecialchars($cat_id) . "\">" . htmlspecialchars($cat_type) . "</option>";
                     }
                 echo "</select>";
                 echo "<h4>Description: <textarea class=\"description\" name=\"description\" id=\"description\" cols=\"50\" rows=\"3\">" . htmlspecialchars($row["description"]) . "</textarea></h4>";

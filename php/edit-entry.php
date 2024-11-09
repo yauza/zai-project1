@@ -9,7 +9,7 @@ $stmt = $mysqli->stmt_init();
 if (!$stmt->prepare($sql)) {
     die("SQL error: " . $mysqli->error);
 }
-$stmt->bind_param("sssss", $_POST["title"], $_POST["description"], $_POST["image_url"], $_POST["category"], $_POST["image_url"]);
+$stmt->bind_param("sssss", $_POST["title"], $_POST["description"], $_POST["image_url"], $_POST["category"], $_POST["id"]);
 
 if ($stmt->execute()) {
     header("Location: index.php");
