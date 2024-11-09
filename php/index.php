@@ -80,7 +80,7 @@ while($cat_row = $categories_result->fetch_assoc()) {
             $i++;
 
             echo "<div class=\"content\" onclick=\"showModal(" . htmlspecialchars($i) . ")\">";
-            echo "<h2>" . htmlspecialchars($row["title"]) . "</h2>";
+            echo "<h2 style=\"color:" . htmlspecialchars($row["color"]) .  "\">" . htmlspecialchars($row["title"]) . "</h2>";
             echo "<p>" . htmlspecialchars($row["description"]) . "</p>";
             echo "<img src=\"" . htmlspecialchars($row["image_url"]) . "\">";
             echo "</div></div>";
