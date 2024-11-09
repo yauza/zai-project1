@@ -25,6 +25,7 @@ while($cat_row = $categories_result->fetch_assoc()) {
     $categories[$cat_row["id"]] = $cat_row["type"];
 }
 
+
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +57,7 @@ while($cat_row = $categories_result->fetch_assoc()) {
     <div class="timeline">
     <?php
         // Add modal
-        echo "<div id=\"add-entry\" class=\"modal\">";
+        echo "<div id=\"add-entry\" class=\"modal add-modal\">";
             echo "<div class=\"modal-content\">";
             echo "<span class=\"close-btn\" onclick=\"closeModal('add-entry')\">&times;</span>";
             echo "<form action=\"add-entry.php\" method=\"post\">";

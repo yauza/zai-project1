@@ -239,6 +239,8 @@
         align-items: center;
     }
 
+    .modal.add-modal {}
+
     .modal-content {
         background-color: aquamarine;
         padding: 20px;
@@ -246,6 +248,7 @@
         width: 80%;
         max-width: 500px;
         text-align: left;
+        position: absolute;
     }
 
     .close-btn {
@@ -279,6 +282,39 @@
         background-color: #FFFAFF;
     }
 
+    span {
+        display: none;
+    }
+
+    h2 {
+        font-size: 25px;
+        margin-top: 50px;
+    }
+
+    textarea {
+        display: block;
+        resize: none;
+        border: none;
+        font-size: 20px;
+        font-weight: 300;
+        appearance: none;
+        height: 100%;
+        width: 100%;
+    }
+
+    select {
+        border: none;
+        font-size: 18px;
+        font-weight: 200;
+        user-select: none;
+        display: block;
+        appearance: none;
+    }
+
+    button {
+        display: none;
+    }
+
     .p {
         font-weight: 400;
         font-size: 20px;
@@ -288,6 +324,10 @@
     }
 
     .navbar-container {
+        display: none;
+    }
+
+    .modal.add-modal {
         display: none;
     }
 
