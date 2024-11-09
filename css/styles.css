@@ -129,6 +129,7 @@
         text-decoration: none;
         color: #D8315B;
         transition: color 0.3s ease;
+        border: 1px solid #D8315B;
     }
 
     /* ---------- */

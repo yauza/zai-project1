@@ -26,12 +26,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $hashed_password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
             // Prevent SQL injection
-            $sql = "INSERT INTO user (login, password) VALUES (?, ?)";
+            $sql = "UPDATE user SET password = ? WHERE login = ?";
             $stmt = $mysqli->stmt_init();
             if (!$stmt->prepare($sql)) {
                 die("SQL error: " . $mysqli->error);
             }
-            $stmt->bind_param("ss", $_POST["login"], $hashed_password);
+            $stmt->bind_param("ss", $hashed_password, $_POST["login"]);
 
             if ($stmt->execute()) {
                 header("Location: ../password-change-finished.html");
@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>Change password</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
 </head>
-
+ 
 <body>
     <h1>Change password</h1>
 
@@ -65,17 +65,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <?php endif; ?>
 
     <form method="post">
-        <label for="login">login</label>
+        <label for="login">Login</label>
         <input type="text" name="login" id="login"
                value="<?= htmlspecialchars($_POST["login"] ?? "") ?>"> 
 
-        <label for="old-password">Login</label>
+        <label for="old-password">Old password</label>
         <input type="password" id="old-password" name="old-password">
 
-        <label for="password">Password</label>
+        <label for="password">New password</label>
         <input type="password" id="password" name="password">
 
-        <label for="repeat-password">Repeat password</label>
+        <label for="repeat-password">Repeat new password</label>
         <input type="password" id="repeat-password" name="repeat-password">
 
         <button>Change password</button> 

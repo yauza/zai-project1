@@ -42,6 +42,7 @@ while($cat_row = $categories_result->fetch_assoc()) {
                 <?php if (isset($user)): ?>
                     <li><button class="entry" onclick="showModal('add-entry')">Add entry</button></li>
                     <li><?= htmlspecialchars($user["login"]) ?></li>
+                    <li><a href="password-change.php">Change password</a></li>
                     <li><a href="logout.php">Log out</a></li>
                 <?php else: ?>
                     <li><a href="login.php">Log in</a> or <a href="../signup.html">sign up</a></li>
